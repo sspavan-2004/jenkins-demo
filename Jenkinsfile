@@ -13,7 +13,7 @@ pipeline {
                 echo "Running tests..."
             }
         }
-        stages('Package'){
+        stage('Package'){
             steps{
                 echo "Packaging the application..."
             }
