@@ -6,21 +6,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Compiling Java file..."
-                bat 'javac src/Hello.java -d out'
+                bat 'mvn compile'
             }
         }
 
         stage('Test') {
             steps {
-                echo "Running application..."
-                bat 'java -cp out Hello'
+                echo "Running tests..."
+                bat 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
                 echo "Creating JAR file..."
-                bat 'jar cf hello.jar -C out Hello.class'
+                bat 'mvn package'
             }
         }
 
@@ -28,7 +28,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: '*.jar'
+            archiveArtifacts artifacts: 'target/*.jar'
         }
     }
 }
