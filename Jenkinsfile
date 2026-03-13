@@ -6,21 +6,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Compiling Java file..."
-                bat 'javac Hello.java'
+                bat 'javac src/Hello.java -d out'
             }
         }
 
         stage('Test') {
             steps {
                 echo "Running application..."
-                bat 'java Hello'
+                bat 'java -cp out Hello'
             }
         }
 
         stage('Package') {
             steps {
                 echo "Creating JAR file..."
-                bat 'jar cf hello.jar Hello.class'
+                bat 'jar cf hello.jar -C out Hello.class'
             }
         }
 
