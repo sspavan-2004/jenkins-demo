@@ -5,7 +5,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo "Compiling Java file..."
+                echo "Building project with Maven..."
                 bat 'mvn compile'
             }
         }
@@ -19,7 +19,7 @@ pipeline {
 
         stage('Package') {
             steps {
-                echo "Creating JAR file..."
+                echo "Packaging application..."
                 bat 'mvn package'
             }
         }
