@@ -5,26 +5,30 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo "Building the project..."
-            }
-        }
-        stage('Test'){
-            steps{
-                echo "Running tests..."
-            }
-        }
-        stage('Package'){
-            steps{
-                echo "Packaging the application..."
+                echo "Compiling Java file..."
+                bat 'javac Hello.java'
             }
         }
 
-        
+        stage('Test') {
+            steps {
+                echo "Running application..."
+                bat 'java Hello'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo "Creating JAR file..."
+                bat 'jar cf hello.jar Hello.class'
+            }
+        }
 
     }
-          post{
-            success{
-                archiveArtifacts artifacts:'**/*',fingerprint:true
-            }
+
+    post {
+        success {
+            archiveArtifacts artifacts: '*.jar'
         }
+    }
 }
