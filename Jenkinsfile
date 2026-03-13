@@ -18,6 +18,11 @@ pipeline {
                 echo "Packaging the application..."
             }
         }
+        post{
+            success{
+                archiveArtifacts artifacts:'**/*',fingerprint:true
+            }
+        }
         
 
     }
