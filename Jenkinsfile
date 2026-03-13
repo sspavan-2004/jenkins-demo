@@ -3,28 +3,11 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Checkout Code') {
             steps {
-                echo 'Compiling Java code'
-                bat 'javac Hello.java'
+                git 'https://github.com/sspavan-2004/jenkins-demo.git'
             }
         }
 
-        stage('Run') {
-            steps {
-                echo 'Running Java program'
-                bat 'java Hello'
-            }
-        }
-
-    }
-
-    post {
-        success {
-            echo 'Pipeline executed successfully'
-        }
-        failure {
-            echo 'Pipeline failed'
-        }
     }
 }
