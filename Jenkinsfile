@@ -3,9 +3,9 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Build') {
             steps {
-                git 'https://github.com/sspavan-2004/jenkins-demo.git'
+                echo "Building the project..."
             }
         }
 
