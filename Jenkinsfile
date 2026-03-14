@@ -5,18 +5,22 @@ pipeline {
         maven 'Maven'
     }
 
+    environment {
+        MAVEN_OPTS = "-Dmaven.repo.local=.m2/repository"
+    }
+
     stages {
 
         stage('Build') {
             steps {
-                echo "Building project with Maven..."
-                bat 'mvn compile'
+                echo "Compiling project..."
+                bat 'mvn -T 1C clean compile'
             }
         }
 
-        stage('Test') {
+        stage('Unit Tests') {
             steps {
-                echo "Running tests..."
+                echo "Running unit tests..."
                 bat 'mvn test'
             }
         }
@@ -24,7 +28,7 @@ pipeline {
         stage('Package') {
             steps {
                 echo "Packaging application..."
-                bat 'mvn package'
+                bat 'mvn package -DskipTests'
             }
         }
 
@@ -32,7 +36,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: 'target/*.jar'
+            archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
     }
 }
